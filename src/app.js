@@ -1,4 +1,7 @@
 const express = require('express')
+require('dotenv').config({
+    path: process.env.NODE_ENV === 'test'? '.env.test': '.env'
+})
 
 /**Cria as configurações da API */
 class AppController{    
@@ -18,9 +21,7 @@ class AppController{
 
     /**Configura o arquivo de rotas a ser utilizado na aplicação*/
     routes(){
-        express.use(require('./routes')
-        // .default
-        )
+        this.express.use(require('./routes'))
     }
 }
 

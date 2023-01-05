@@ -7,7 +7,7 @@ module.exports = {
       type: 'foreign key',
       name: 'fkEstoqueProduto',
       references: {
-        table: 'Categoria',
+        table: 'Produto',
         field: 'id'
       }
     })

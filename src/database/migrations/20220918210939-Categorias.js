@@ -15,11 +15,18 @@ module.exports = {
       },
       titulo:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: ''
       },
       status:{
         type: Sequelize.INTEGER,
         allowNull: false
+      },
+      createdAt:{
+        type: Sequelize.DATE
+      },
+      updatedAt:{
+        type: Sequelize.DATE
       }
     })
   },
