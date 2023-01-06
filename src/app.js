@@ -6,7 +6,7 @@ require('dotenv').config({
 /**Cria as configurações da API */
 class AppController{    
 
-    /**Construtor sem aargumentos */
+    /**Construtor sem argumentos */
     constructor(){
         this.express = express();
 
