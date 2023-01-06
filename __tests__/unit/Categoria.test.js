@@ -48,4 +48,11 @@ describe('Categoria', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Deleta uma Categoria existente', async () => {
+        const response = await request(app)
+            .delete('/categorias/1')
+
+        expect(response.status).toBe(200);
+    })
 })
