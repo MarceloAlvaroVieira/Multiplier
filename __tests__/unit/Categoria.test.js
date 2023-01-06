@@ -38,7 +38,7 @@ describe('Categoria', () => {
 
     it('Altera uma Categoria existente', async () => {
         const response = await request(app)
-            .patch('/categorias')
+            .patch('/categorias/1')
             .send({
                 titulo: 'teste de alteração',
                 status: false
