@@ -23,4 +23,16 @@ describe('Categoria', () => {
 
          expect(response.status).toBe(200);
     })
+
+    it('Cria nova Categoria', async () => {
+        const response = await request(app)
+            .post('/categorias')
+            .send({
+                codigo: 1,
+                titulo: 'teste',
+                status: true
+            })
+
+        expect(response.status).toBe(200);
+    })
 })
