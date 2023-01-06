@@ -35,4 +35,17 @@ describe('Categoria', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Altera uma Categoria existente', async () => {
+        const response = await request(app)
+            .patch('/categorias')
+            .send({
+                titulo: 'teste de alteração',
+                status: false
+            }, {
+                where: {codigo: 1},
+            })
+
+        expect(response.status).toBe(200);
+    })
 })
