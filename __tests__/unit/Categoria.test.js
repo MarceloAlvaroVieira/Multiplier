@@ -42,8 +42,6 @@ describe('Categoria', () => {
             .send({
                 titulo: 'teste de alteração',
                 status: false
-            }, {
-                where: {codigo: 1},
             })
 
         expect(response.status).toBe(200);
