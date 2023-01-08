@@ -1,5 +1,3 @@
-const { HttpStatusCode } = require('axios');
-const { response } = require('../../app');
 const { Categoria } = require('../models')
 
 
@@ -17,12 +15,21 @@ class CategoriaController{
     async findOne(req, res){
         try{
             const id = parseInt(req.params.id)
-            const categoria = await Categoria.findOne({
+            const categoria = await Categoria.findAll({
                 where:{id: id}
             })
             res.status(200).send(categoria)
         }catch(error){
-            res.status(200).send(error)
+            res.status(500).send(error)
+        }
+    }
+
+    async findAll(req, res){
+        try{
+            const categorias = await Categoria.findAll()
+            res.status(200).send(categorias)
+        }catch(error){
+            res.status(500).send(error)
         }
     }
 }
