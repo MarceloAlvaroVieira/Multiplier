@@ -6,5 +6,6 @@ const CategoriaController = require('./app/controllers/CategoriaController')
 routes.get('/categorias', CategoriaController.findAll)
 routes.get('/categorias/:id', CategoriaController.findOne)
 routes.post('/categorias', CategoriaController.create)
+routes.patch('/categorias/:id', CategoriaController.update)
 
 module.exports = routes;

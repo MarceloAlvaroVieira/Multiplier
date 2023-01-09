@@ -32,6 +32,29 @@ class CategoriaController{
             res.status(500).send(error)
         }
     }
+
+    async update(req, res){
+        try{
+            if(req.params.id){
+                const id = parseInt(req.params.id)
+                const dbCategoria = await Categoria.findByPk(id)
+
+                console.log(dbCategoria);
+
+                if(!dbCategoria){
+                    res.status(404).send('Categoria não encontrada.')
+                }
+                
+                const categoria = await Categoria.update(req.body ,{
+                    where:{id: id}
+                })            
+                res.status(200).send(categoria)
+            }
+            res.status(400).send()
+        }catch(error){
+            res.status(500).send(error)
+        }
+    }
 }
 
 module.exports = new CategoriaController();
