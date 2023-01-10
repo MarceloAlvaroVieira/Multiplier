@@ -1,4 +1,5 @@
 const { Categoria } = require('../models')
+const { Produto } = require('../models')
 
 
 class CategoriaController{
@@ -12,12 +13,10 @@ class CategoriaController{
         }
     }
 
-    async findOne(req, res){
+    async findByPk(req, res){
         try{
             const id = parseInt(req.params.id)
-            const categoria = await Categoria.findAll({
-                where:{id: id}
-            })
+            const categoria = await Categoria.findByPk(id)
             res.status(200).send(categoria)
         }catch(error){
             res.status(500).send(error)
@@ -39,8 +38,6 @@ class CategoriaController{
                 const id = parseInt(req.params.id)
                 const dbCategoria = await Categoria.findByPk(id)
 
-                console.log(dbCategoria);
-
                 if(!dbCategoria){
                     res.status(404).send('Categoria não encontrada.')
                 }
@@ -55,6 +52,34 @@ class CategoriaController{
             res.status(500).send(error)
         }
     }
+
+
+    // async delete(req, res){
+    //     try {
+    //         if(req.params.id){
+    //             const id = parseInt(req.params.id)
+    //             const categoria = await Categoria.findByPk(id)
+                
+    //             if(!categoria){
+    //                 res.status(404).send('Categoria não encontrada.')
+    //             }            
+                
+    //             await Produto.update({ idCategoria: null }, {
+    //                 where: { idCategoria: categoria.id }
+    //             }).then( async() => {
+    //                 categoria = await Categoria.destroy({cascade: true})
+    //             })
+
+    //             console.log(categoria)
+    //             res.status(200).send(categoria)
+    //         }  
+    //         res.status(400).send()
+    //     }catch(error) {
+
+    //         console.log(error)
+    //      res.status(500).send(error)   
+    //     }
+    // }
 }
 
 module.exports = new CategoriaController();
