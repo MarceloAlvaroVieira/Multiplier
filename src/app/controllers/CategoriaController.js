@@ -13,10 +13,12 @@ class CategoriaController{
         }
     }
 
-    async findByPk(req, res){
+    async findOne(req, res){
         try{
             const id = parseInt(req.params.id)
-            const categoria = await Categoria.findByPk(id)
+            const categoria = await Categoria.findAll({
+                where:{id: id}
+            })
             res.status(200).send(categoria)
         }catch(error){
             res.status(500).send(error)
@@ -41,7 +43,6 @@ class CategoriaController{
                 if(!dbCategoria){
                     res.status(404).send('Categoria não encontrada.')
                 }
-                
                 const categoria = await Categoria.update(req.body ,{
                     where:{id: id}
                 })            
@@ -54,32 +55,30 @@ class CategoriaController{
     }
 
 
-    // async delete(req, res){
-    //     try {
-    //         if(req.params.id){
-    //             const id = parseInt(req.params.id)
-    //             const categoria = await Categoria.findByPk(id)
+    async delete(req, res){
+        try {
+            if(req.params.id){
+                const id = parseInt(req.params.id)
+                const categoria = await Categoria.findByPk(id)
                 
-    //             if(!categoria){
-    //                 res.status(404).send('Categoria não encontrada.')
-    //             }            
-                
-    //             await Produto.update({ idCategoria: null }, {
-    //                 where: { idCategoria: categoria.id }
-    //             }).then( async() => {
-    //                 categoria = await Categoria.destroy({cascade: true})
-    //             })
-
-    //             console.log(categoria)
-    //             res.status(200).send(categoria)
-    //         }  
-    //         res.status(400).send()
-    //     }catch(error) {
-
-    //         console.log(error)
-    //      res.status(500).send(error)   
-    //     }
-    // }
+                if(!categoria){
+                    res.status(404).send('Categoria não encontrada.')
+                }            
+                await Produto.update({ idCategoria: null }, {
+                    where: { idCategoria: categoria.id } //pode-se usar force: true
+                }).then( async() => {
+                    await Categoria.destroy({
+                        where: { id : categoria.id }
+                    })
+                })
+                res.status(200).send()
+            }  
+            res.status(400).send()
+        }catch(error) {
+            console.log(error)
+         res.status(500).send(error)   
+        }
+    }
 }
 
 module.exports = new CategoriaController();

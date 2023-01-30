@@ -6,10 +6,6 @@ const truncate = require('../utils/truncate')
 
 describe('Categoria', () => {
 
-    // beforeEach(() => {
-    //     return async function(){return await truncate();}
-    // })
-
     it('Listagem de Categorias', async () => {
         const response = await request(app)
             .get('/categorias')
@@ -23,7 +19,7 @@ describe('Categoria', () => {
 
          expect(response.status).toBe(200);
     })
-
+    
     it('Cria nova Categoria', async () => {
         const response = await request(app)
             .post('/categorias')
