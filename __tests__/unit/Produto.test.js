@@ -17,4 +17,18 @@ describe('Produto', () => {
 
          expect(response.status).toBe(200);
     })
+    
+    it('Cria nova Produto', async () => {
+        const response = await request(app)
+            .post('/produtos')
+            .send({
+                idCategoria: null,
+                codigo: 0001,
+                descricao: 'Produto de teste.',
+                valor: 0.99,
+                status: 1
+            })
+
+        expect(response.status).toBe(200);
+    })
 })
