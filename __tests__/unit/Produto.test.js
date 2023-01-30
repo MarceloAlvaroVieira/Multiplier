@@ -10,4 +10,11 @@ describe('Produto', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Busca de Produto por id', async () => {
+        const response = await request(app)
+           .get('/produtos/1')
+
+         expect(response.status).toBe(200);
+    })
 })
