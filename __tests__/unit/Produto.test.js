@@ -45,4 +45,11 @@ describe('Produto', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Deleta uma Produto existente', async () => {
+        const response = await request(app)
+            .delete('/produtos/1')
+
+        expect(response.status).toBe(200);
+    })
 })
