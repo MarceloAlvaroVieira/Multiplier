@@ -31,4 +31,18 @@ describe('Produto', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Altera uma Produto existente', async () => {
+        const response = await request(app)
+            .patch('/produtos/1')
+            .send({
+                idCategoria: null,
+                codigo: 9999,
+                descricao: 'Produto alterado para testes.',
+                valor: 10.99,
+                status: 0
+            })
+
+        expect(response.status).toBe(200);
+    })
 })
