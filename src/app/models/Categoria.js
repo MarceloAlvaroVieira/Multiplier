@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         codigo: DataTypes.STRING,
         titulo: DataTypes.STRING,
         status: DataTypes.INTEGER,
+    },{
+        tableName: 'Categoria'
     })
 
     return Categoria;

@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         descricao: DataTypes.TEXT,
         valor: DataTypes.DECIMAL,
         status: DataTypes.INTEGER,
+    },{
+        tableName: 'Produto'
     })
 
     return Produto;

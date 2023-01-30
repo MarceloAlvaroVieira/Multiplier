@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         quantidade: DataTypes.INTEGER,
         reserva: DataTypes.INTEGER,
         status: DataTypes.INTEGER,
+    },{
+        tableName: 'Estoque'
     })
 
     return Estoque;
