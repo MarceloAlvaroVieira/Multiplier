@@ -24,4 +24,11 @@ describe('Estoque', () => {
 
         expect(response.status).toBe(200);
     })
+
+    it('Deleta um Estoque existente', async () => {
+        const response = await request(app)
+            .delete('/produtos/1/estoque')
+
+        expect(response.status).toBe(501);
+    })
 })
