@@ -60,6 +60,28 @@ class ProdutoController{
             return res.status(500).send(error)
         }
     }
+
+    async delete(req, res){
+        try {
+            if(req.params.id){
+                const id = parseInt(req.params.id)
+                const produto = await Produto.findByPk(id)  
+                if(!produto){
+                    return res.status(404).send('Produto não encontrado.')
+                }            
+                await Estoque.destroy({
+                    where: { idProduto : id }
+                })
+                await Produto.destroy({
+                    where: { id : id }
+                })
+                return res.status(200).send()
+            }  
+            return res.status(400).send()
+        }catch(error) {
+            return res.status(500).send(error)   
+        }
+    }
 }
 
 module.exports = new ProdutoController();
