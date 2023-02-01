@@ -66,7 +66,7 @@ class CategoriaController{
                     return res.status(404).send('Categoria não encontrada.')
                 }            
                 await Produto.update({ idCategoria: null }, {
-                    where: { idCategoria: categoria.id } //pode-se usar force: true
+                    where: { idCategoria: categoria.id }
                 }).then( async() => {
                     await Categoria.destroy({
                         where: { id : categoria.id }

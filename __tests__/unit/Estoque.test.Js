@@ -6,7 +6,6 @@ describe('Estoque', () => {
     it('Busca de Estoque por id', async () => {
         const response = await request(app)
            .get('/produtos/1/estoque')
-
          expect(response.status).toBe(200);
     })
 
@@ -21,14 +20,12 @@ describe('Estoque', () => {
             }, {
                 where: {id: 1},
             })
-
         expect(response.status).toBe(200);  
     })
 
     it('Deleta um Estoque existente', async () => {
         const response = await request(app)
             .delete('/produtos/1/estoque')
-
         expect(response.status).toBe(501);
     })
 })

@@ -3,8 +3,6 @@ const CategoriaController = require('./app/controllers/CategoriaController');
 const EstoqueController = require('./app/controllers/EstoqueController');
 const ProdutoController = require('./app/controllers/ProdutoController');
 
-/**Definição de rotas */
-
 routes.get('/categorias', CategoriaController.findAll)
 routes.get('/categorias/:id', CategoriaController.findOne)
 routes.post('/categorias', CategoriaController.create)
@@ -20,4 +18,5 @@ routes.delete('/produtos/:id', ProdutoController.delete)
 routes.get('/produtos/:id/estoque', EstoqueController.findOne)
 routes.patch('/produtos/:id/estoque', EstoqueController.update)
 routes.delete('/produtos/:id/estoque', EstoqueController.delete)
+
 module.exports = routes;
