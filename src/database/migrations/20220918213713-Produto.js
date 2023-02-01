@@ -11,7 +11,7 @@ module.exports = {
       },
       idCategoria: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       codigo: {
         type: Sequelize.STRING,

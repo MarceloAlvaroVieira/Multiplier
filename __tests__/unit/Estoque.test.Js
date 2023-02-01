@@ -22,7 +22,7 @@ describe('Estoque', () => {
                 where: {id: 1},
             })
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(200);  
     })
 
     it('Deleta um Estoque existente', async () => {
