@@ -31,6 +31,15 @@ class ProdutoController{
             return res.status(500).send(error)
         }
     }
+
+    async findAll(req, res){
+        try{
+            const produtos = await Produto.findAll()
+            return res.status(200).send(produtos)
+        }catch(error){
+            return res.status(500).send(error)
+        }
+    }
 }
 
 module.exports = new ProdutoController();
