@@ -41,7 +41,7 @@ class CategoriaController{
                 const id = parseInt(req.params.id)
                 const dbCategoria = await Categoria.findByPk(id)
 
-                if(!dbCategoria || categoria === []){
+                if(!dbCategoria || dbCategoria === []){
                     return res.status(404).send('Categoria não encontrada.')
                 }
                 const categoria = await Categoria.update(req.body ,{
