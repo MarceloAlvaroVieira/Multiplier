@@ -1,0 +1,616 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Multiplier para sistema RP",
+        "description": "Essa API tem por finalidade tratar dados de pordutos de um sistema RP, manipulando estoque e categoria do produto.",
+        "contact": {
+            "email": "marceloalvarovieira@gmail.com",
+            "phone": "(037) 9 8840-1910"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "URL base para utilização da API"
+        }
+    ],
+    "paths": {
+        "/categorias": {
+            "post": {
+                "summary": "Cadastro de categoria",
+                "description": "Essa rota é responsável por registrar uma nova categoria.",
+                "tags": [
+                    "Categorias"
+                ],
+                "requestBody": {
+                    "description": "Aqui deve, ser passado os dados de categoria, sendo eles: <b>codigo</b>, <b>titulo</b> e <b>status</b>.<br/><br>Ex: <i>{<br> \"codigo\": \"1\",<br> \"titulo\": \"Categoria 01\",<br> \"status\": 1<br>}</i>",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Categoria"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.<br><br>Retorno do objeto cadastrado, juntamente com os campos de <b>id</b>, <b>createdAt</b>, <b>updatedAt</b>. Esses campos são gerados automaticamente.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "<b>Unprocessable Entity</b><br><br>Não foi possível procesar as informações da entidade.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Busca de categorias",
+                "description": "Essa rota é responsável por buscar todas as categorias registradas.",
+                "tags": [
+                    "Categorias"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.<br><br>Lista de categorias previamente cadastradas.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categorias/{id}": {
+            "get": {
+                "summary": "Busca de categorias pelo ID",
+                "description": "Essa rota é responsável buscar uma categoria pelo seu ID.",
+                "tags": [
+                    "Categorias"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência da Categoria",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "<b>Not Found<b><br><br>O recurso procurado não foi encontrado.",
+                        "content": {
+                            "text/html": {
+                                "schema": null,
+                                "it": "Categoria não encontrada."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Alteração de categoria",
+                "description": "Essa rota é responsável por alterar categorias registradas usando o ID.",
+                "tags": [
+                    "Categorias"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência da Categoria",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Aqui deve ser passado um dos campos a ser modificado: <b>codigo</b> || <b>titulo</b> || <b>status</b>.<br/>Ex: <br><i>{ \"codigo\": \"1\" }</i>",
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Apagar categoria",
+                "description": "Essa rota é responsável por buscar todas as categorias registradas.",
+                "tags": [
+                    "Categorias"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência da Categoria",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Categoria"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos": {
+            "post": {
+                "summary": "Cadastro de produto",
+                "description": "Essa rota é responsável por registrar um novo produto.",
+                "tags": [
+                    "Produtos"
+                ],
+                "requestBody": {
+                    "description": "Deve informar um <b>idCategoria</b> de uma categoria já existente ou colocar <i>null</i>.<br>Aqui deve ser passado os dados de produto, sendo eles: <b>idCategoria</b>, <b>codigo</b>, <b>nome</b>, <b>descricao</b>, <b>valor</b> e <b>status</b>.<br/><br>Ex: <i>{<br> \"idCategoria\": null,<br> \"codigo\": \"1\",<br> \"nome\": \"Produto 01\",<br> \"descricao\": \"Cadastrado para documentação\",<br> \"valor\": 9.99,<br> \"status\": 1<br>}</i>",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Produto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.<br><br>Retorno do objeto cadastrado, juntamente com os campos de <b>id</b>, <b>createdAt</b>, <b>updatedAt</b>. Esses campos são gerados automaticamente.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Produto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "<b>Unprocessable Entity</b><br><br>Não foi possível procesar as informações da entidade.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Busca de produtos",
+                "description": "Essa rota é responsável por buscar todas as produtos registradas.",
+                "tags": [
+                    "Produtos"
+                ],
+                "responses": {
+                    "200": {
+                    "description": "<b>Ok</b><br><br>Requisição bem sucedida.<br><br>Lista de produtos previamente cadastrados.",
+                    "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Produto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos/{id}": {
+            "get": {
+                "summary": "Busca de produtos pelo ID",
+                "description": "Essa rota é responsável buscar um produto pelo seu ID.",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência do Produto",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Produto"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "<b>Not Found<b><br><br>O recurso procurado não foi encontrado.",
+                        "content": {
+                            "text/html": {
+                                "schema": null,
+                                "it": "Produto não encontrado."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Apagar produto",
+                "description": "Essa rota é responsável por buscar todos as produtos registrados.",
+                "tags": [
+                    "Produtos"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência do Produto",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/produtos/{id}/estoque": {
+            "get": {
+                "summary": "Busca de estoques pelo ID",
+                "description": "Essa rota é responsável buscar uma estoque pelo seu ID.",
+                "tags": [
+                    "Estoques"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência da Estoque",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Estoque"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "<b>Not Found<b><br><br>O recurso procurado não foi encontrado.",
+                        "content": {
+                            "text/html": {
+                                "schema": null,
+                                "it": "Estoque não encontrado."
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "<b>Internal Server Error</b><br><br>Erro do servidor.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Alteração de estoque",
+                "description": "Essa rota é responsável por alterar estoques registrados usando o ID.",
+                "tags": [
+                    "Estoques"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência do Estoque",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Aqui deve ser passado um dos campos a ser modificado: <b>quantidade</b> || <b>reserva</b> || <b>status</b>.<br/>Ex: <br><i>{ \"quantidade\": 1 }</i>",
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "<b>Ok</b><br><br>Requisição bem sucedida.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "<b>Bad Request</b><br><br>Dados enviados possuem algum tipo de erro.",
+                        "content": {
+                            "text/html": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Apagar estoque",
+                "description": "Essa rota é responsável por buscar todos os estoques registradas.",
+                "tags": [
+                    "Estoques"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de referência da Estoque",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "501": {
+                        "description": "Not Implemented",
+                        "content": {
+                            "application/json": {
+                                "schema": null
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Categoria": {
+                "type": "object",
+                "properties": {
+                    "codigo": {
+                        "type": "string"
+                    },
+                    "titulo": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "Produto": {
+                "type": "object",
+                "properties": {
+                    "idCategoria": {
+                        "type": "integer",
+                        "value": null
+                    },
+                    "codigo": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "descricao": {
+                        "type": "string"
+                    },
+                    "valor": {
+                        "type": "number"
+                    },
+                    "status": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "Estoque": {
+                "type": "object",
+                "properties": {
+                    "idProduto": {
+                        "type": "integer"
+                    },
+                    "quantidade": {
+                        "type": "integer"
+                    },
+                    "reserva": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
