@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API Multiplier para sistema RP",
+        "title": "API Multiplier para sistema de vendas",
         "description": "Essa API tem por finalidade tratar dados de pordutos de um sistema, manipulando estoque e categoria do produto.",
         "contact": {
             "email": "marceloalvarovieira@gmail.com",
